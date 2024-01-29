@@ -11,6 +11,8 @@ internal class LightmapBuilder
     public Rectangle FullbrightRectangle { get; }
 
     private byte[] _data;
+    public byte[] Data => _data;
+
     private int _currentX;
     private int _currentY;
     private int _currentRowHeight;
@@ -25,7 +27,7 @@ internal class LightmapBuilder
         _currentRowHeight = 2;
 
         // (0, 0) is fullbright
-        FullbrightRectangle = Allocate(new object(), 1, 1, new[] { byte.MaxValue, byte.MaxValue, byte.MaxValue }, 0);
+        FullbrightRectangle = Allocate(1, 1, new[] { byte.MaxValue, byte.MaxValue, byte.MaxValue }, 0);
     }
 
     public Vector2 GetLightmapUv(Rectangle rect, Vector2 originalUvs)
@@ -35,7 +37,7 @@ internal class LightmapBuilder
         return new Vector2(x, y);
     }
 
-    public Rectangle Allocate(object reference, int width, int height, byte[] data, int index)
+    public Rectangle Allocate(int width, int height, byte[] data, int index)
     {
         if (_currentX + width > Width) NewRow();
         if (_currentY + height > Height) Expand();

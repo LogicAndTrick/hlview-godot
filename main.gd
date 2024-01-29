@@ -71,4 +71,4 @@ func _on_sub_viewport_container_mouse_exited() -> void:
 func _on_item_list_item_activated(index: int) -> void:
 	var file_name = item_list_box.get_item_text(index)
 	var path = game_dir + '/maps/' + file_name
-	bsp_node.LoadFile(path)
+	bsp_node.LoadFile(game_dir, path)

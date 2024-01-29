@@ -48,7 +48,6 @@ layout_mode = 2
 [node name="FilterTextBox" type="TextEdit" parent="VBoxContainer/MainHSplit/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-text = "start"
 placeholder_text = "Filter list..."
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer/MainHSplit/VBoxContainer"]
@@ -73,6 +72,7 @@ script = ExtResource("3_ig7i4")
 [node name="Camera" type="Camera3D" parent="VBoxContainer/MainHSplit/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.946807, 0.321803, 0, -0.321803, 0.946807, 0, 11.59, 26.37)
 environment = SubResource("Environment_wb0oo")
+far = 10000.0
 script = ExtResource("4_u2013")
 
 [connection signal="id_pressed" from="VBoxContainer/MainMenu/File" to="." method="_on_file_menu_id_pressed"]

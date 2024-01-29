@@ -28,7 +28,7 @@ func perform_freelook(event : InputEventMouseMotion):
 	var movement = event.relative
 	if movement != Vector2.ZERO:
 		global_rotation_degrees.y = global_rotation_degrees.y - (movement.x * sensitivity)
-		global_rotation_degrees.x = clamp(global_rotation_degrees.x - (movement.y * sensitivity), -45, 45)
+		global_rotation_degrees.x = clamp(global_rotation_degrees.x - (movement.y * sensitivity), -85, 85)
 		# todo this seems a bit broken, fix later
 
 var current_speed : Vector2 = Vector2.ZERO
