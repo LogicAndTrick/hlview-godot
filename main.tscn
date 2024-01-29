@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://krobh6bn0ouk"]
+
+[ext_resource type="PackedScene" uid="uid://csvyrncxmjw3v" path="res://box.tscn" id="1_gbqir"]
+[ext_resource type="Script" path="res://main.gd" id="1_rqixn"]
+[ext_resource type="Script" path="res://Net/BspNode.cs" id="3_ig7i4"]
+[ext_resource type="Script" path="res://camera_control.gd" id="4_u2013"]
+
+[sub_resource type="Environment" id="Environment_wb0oo"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="MainWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rqixn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="MenuBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="File" type="PopupMenu" parent="VBoxContainer/MainMenu"]
+title = "File"
+item_count = 1
+item_0/text = "Select game folder..."
+item_0/id = 0
+
+[node name="Help" type="PopupMenu" parent="VBoxContainer/MainMenu"]
+
+[node name="MainHSplit" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainHSplit"]
+layout_mode = 2
+
+[node name="FilterTextBox" type="TextEdit" parent="VBoxContainer/MainHSplit/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "start"
+placeholder_text = "Filter list..."
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/MainHSplit/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/MainHSplit"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/MainHSplit/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(890, 613)
+render_target_update_mode = 4
+
+[node name="Node3D" parent="VBoxContainer/MainHSplit/SubViewportContainer/SubViewport" instance=ExtResource("1_gbqir")]
+
+[node name="BspNode" type="Node3D" parent="VBoxContainer/MainHSplit/SubViewportContainer/SubViewport"]
+script = ExtResource("3_ig7i4")
+
+[node name="Camera" type="Camera3D" parent="VBoxContainer/MainHSplit/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.946807, 0.321803, 0, -0.321803, 0.946807, 0, 11.59, 26.37)
+environment = SubResource("Environment_wb0oo")
+script = ExtResource("4_u2013")
+
+[connection signal="id_pressed" from="VBoxContainer/MainMenu/File" to="." method="_on_file_menu_id_pressed"]
+[connection signal="text_changed" from="VBoxContainer/MainHSplit/VBoxContainer/FilterTextBox" to="." method="_on_filter_text_box_text_changed"]
+[connection signal="item_activated" from="VBoxContainer/MainHSplit/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="mouse_entered" from="VBoxContainer/MainHSplit/SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/MainHSplit/SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
